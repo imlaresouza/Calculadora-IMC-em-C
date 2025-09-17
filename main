@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main() {
+    float peso, altura, imc, somaIMC = 0.0;
+    int contador = 0;
+    char continuar;
+
+    printf("=== CALCULADORA DE IMC ===\n");
+    printf("Este programa calcula o IMC de múltiplos usuários.\n");
+
+    do {
+        // Limpa o buffer antes de ler novas entradas
+        fflush(stdin);
+
+        printf("\nInforme o peso (kg): ");
+        scanf("%f", &peso);
+
+        printf("Informe a altura (m): ");
+        scanf("%f", &altura);
+
+        // Validação da altura
+        if (altura <= 0) {
+            printf("Erro: Digite uma altura válida (maior que 0)\n");
+        } else {
+            imc = peso / (altura * altura);
+            printf("IMC calculado: %.2f\n", imc);
+
+            if (imc < 18.5) {
+                printf("Classificação: Abaixo do peso\n");
+            } else if (imc < 25) {
+                printf("Classificação: Peso normal\n");
+            } else if (imc < 30) {
+                printf("Classificação: Sobrepeso\n");
+            } else if (imc < 35) {
+                printf("Classificação: Obesidade grau I\n");
+            } else if (imc < 40) {
+                printf("Classificação: Obesidade grau II\n");
+            } else {
+                printf("Classificação: Obesidade grau III\n");
+            }
+
+            somaIMC += imc;
+            contador++;
+        }
+
+        // Limpa o buffer antes de ler o caractere
+        fflush(stdin);
+        printf("\nDeseja calcular o IMC de outra pessoa? (s/n): ");
+        scanf(" %c", &continuar);
+
+    } while (continuar == 's' || continuar == 'S');
+
+    if (contador > 0) {
+        float mediaIMC = somaIMC / contador;
+        printf("\nMédia geral dos IMCs calculados: %.2f\n", mediaIMC);
+    }
+
+    printf("\nObrigado por usar a calculadora de IMC!\n");
+    return 0;
+}
